@@ -62,7 +62,7 @@ class StartRestaurantPlan(ActionStartPlan):
         return self._name
 
     def __str__(self):
-        return "ActivatePlan('{}')".format(self.name())
+        return f"ActivatePlan('{self.name()}')"
 
 
 class StartHotelPlan(ActionStartPlan):
@@ -78,7 +78,7 @@ class StartHotelPlan(ActionStartPlan):
         return self._name
 
     def __str__(self):
-        return "ActivatePlan('{}')".format(self.name())
+        return f"ActivatePlan('{self.name()}')"
 
 
 class StopPlanSwitch(Action):
@@ -95,7 +95,7 @@ class StopPlanSwitch(Action):
         return self._name
 
     def __str__(self):
-        return "StopPlanSwitch('{}')".format(self.name())
+        return f"StopPlanSwitch('{self.name()}')"
 
 
 class StopPlan(Action):
@@ -104,17 +104,14 @@ class StopPlan(Action):
 
     def run(self, dispatcher, tracker, domain):
         unfilled = tracker.active_plan.check_unfilled_slots(tracker)
-        if len(unfilled) == 0:
-            complete = True
-        else:
-            complete = False
+        complete = len(unfilled) == 0
         return [EndPlan(), SlotSet('plan_complete', complete)]
 
     def name(self):
         return self._name
 
     def __str__(self):
-        return "StopPlanSwitch('{}')".format(self.name())
+        return f"StopPlanSwitch('{self.name()}')"
 
 
 class SpaAnswerParse(Action):
